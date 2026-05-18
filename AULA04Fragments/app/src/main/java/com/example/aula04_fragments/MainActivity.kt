@@ -52,7 +52,8 @@ class MainActivity : AppCompatActivity(), InputFragment.OnFragmentInteractionLis
 
     override fun onDevolverClicked(text: String) {
         tvResult.text = "Último recebido: $text"
-        etInput.text = "$text"
+        etInput.setText(text)
+
         // Adiciona à lista e atualiza o ListView
         items.add(text)
         adapter.notifyDataSetChanged()
