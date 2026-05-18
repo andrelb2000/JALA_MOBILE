@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/ID1_editTextText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite um nome..."
+        android:textColor="#000000"
+        android:textColorHint="#757575"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/ID1_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adicionar na Lista"
+        android:layout_marginTop="8dp" />
+
+    <ListView
+        android:id="@+id/ID1_LIST_VIEW"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:divider="#CCCCCC"
+        android:dividerHeight="1dp" />
+</LinearLayout>
