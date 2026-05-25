@@ -10,6 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+/****** RECYCLERVIEW CHANGES *****/
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+/********************************/
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,9 +23,13 @@ class InputFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
     private var initialText: String? = null
+    private lateinit var dataStoreManager: DataStoreManager
+    /****** RECYCLERVIEW CHANGES *****/
+    private lateinit var listNamesAdapter: ListNamesAdapter
+    /********************************/
 
     interface OnFragmentInteractionListener {
-        fun onDevolverClicked(text: String)
+        fun onDevolverClicked(text: String, listName: String)
     }
 
     override fun onAttach(context: Context) {
@@ -45,15 +53,40 @@ class InputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_input, container, false)
+        val etListName = view.findViewById<EditText>(R.id.etListName)
         val editText = view.findViewById<EditText>(R.id.etFragmentInput)
         val btnDevolver = view.findViewById<Button>(R.id.btnDevolver)
         val btnEnviarRest = view.findViewById<Button>(R.id.btnEnviarRest)
+
+        /****** RECYCLERVIEW CHANGES *****/
+        val rvListNames = view.findViewById<RecyclerView>(R.id.rvListNames)
+        listNamesAdapter = ListNamesAdapter(emptyList())
+        rvListNames.adapter = listNamesAdapter
+        rvListNames.layoutManager = LinearLayoutManager(requireContext())
+        /********************************/
+
+        dataStoreManager = DataStoreManager(requireContext())
+
+        /****** RECYCLERVIEW CHANGES *****/
+        // Observa as mudanças no DataStore para atualizar o RecyclerView
+        viewLifecycleOwner.lifecycleScope.launch {
+            dataStoreManager.listNames.collect { names ->
+                listNamesAdapter.updateData(names.toList())
+            }
+        }
+        /********************************/
 
         editText.setText(initialText)
 
         btnDevolver.setOnClickListener {
             val textToReturn = editText.text.toString()
-            listener?.onDevolverClicked(textToReturn)
+            val listName = etListName.text.toString()
+
+            // SQLite & DataStore CHANGES
+            lifecycleScope.launch {
+                dataStoreManager.addListName(listName)
+                listener?.onDevolverClicked(textToReturn, listName)
+            }
         }
 
         btnEnviarRest.setOnClickListener {

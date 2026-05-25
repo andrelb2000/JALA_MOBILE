@@ -63,17 +63,18 @@ class MainActivity : AppCompatActivity(), InputFragment.OnFragmentInteractionLis
         }
     }
 
-    override fun onDevolverClicked(text: String) {
-        tvResult.text = "Último recebido: $text"
+    override fun onDevolverClicked(text: String, listName: String) {
+        val formattedText = "$listName - $text"
+        tvResult.text = "Último recebido: $formattedText"
         etInput.setText(text)
 
         /****** SQLite CHANGES *****/
         // Salva no banco de dados
-        dbHelper.addWord(text)
+        dbHelper.addWord(formattedText)
         /****************************/
 
         // Adiciona à lista e atualiza o ListView
-        items.add(text)
+        items.add(formattedText)
         adapter.notifyDataSetChanged()
         
         // Remove o fragmento após devolver
