@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -13,15 +14,23 @@
         <EditText
             android:id="@+id/etListName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="57dp"
             android:hint="Nome da Lista"
             android:text="LISTA 1" />
 
         <EditText
             android:id="@+id/etFragmentInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digite algo aqui" />
+            android:layout_height="60dp"
+            android:hint="Digite um nome" />
+
+        <EditText
+            android:id="@+id/etNumberInput"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Número/Idade"
+            android:inputType="number"
+            android:text="0" />
 
         <!-- ****** RECYCLERVIEW CHANGES ***** -->
         <androidx.recyclerview.widget.RecyclerView
@@ -43,8 +52,9 @@
             android:id="@+id/btnEnviarRest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enviar REST (Simulado)"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="Consultar Idade (Agify.io)"
+            app:toggleCheckedStateOnClick="false" />
 
     </LinearLayout>
 </ScrollView>
