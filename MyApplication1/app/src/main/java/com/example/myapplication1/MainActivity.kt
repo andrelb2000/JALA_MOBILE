@@ -45,6 +45,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
 @Composable
 fun ContarButton(contador: MutableState<Int>) {
     Button(onClick = {
